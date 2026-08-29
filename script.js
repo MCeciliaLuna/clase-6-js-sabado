@@ -40,4 +40,22 @@ const jsonplaceholderData = async () => {
     console.log(user2)
 }
 
+const emailUser = document.getElementById("email");
 
+const comprobarEmail = async (event) => {
+    event.preventDefault()
+    
+    const url = "https://jsonplaceholder.typicode.com/users";
+    const respuesta = await fetch(url)
+    const usersJson = await respuesta.json()
+    console.log(usersJson)
+    const user2 = usersJson[2].email
+
+    if (emailUser.value === user2) {
+        alert("INTENTE CON OTRO MAIL");
+        console.error("Email ya en uso")
+    } else {
+        // window.location.href = "bienvenido.html"
+        console.log("hola")
+    }
+ }
