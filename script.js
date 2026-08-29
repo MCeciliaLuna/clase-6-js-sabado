@@ -34,7 +34,7 @@ const jsonplaceholderData = async () => {
     const respuesta = await fetch(url);
     const json = await respuesta.json()
     console.log(json);
-    const user2 = json.filter(function(post){
+    const user2 = json.filter(function (post) {
         return post.userId === 2
     })
     console.log(user2)
@@ -43,19 +43,27 @@ const jsonplaceholderData = async () => {
 const emailUser = document.getElementById("email");
 
 const comprobarEmail = async (event) => {
-    event.preventDefault()
-    
-    const url = "https://jsonplaceholder.typicode.com/users";
-    const respuesta = await fetch(url)
-    const usersJson = await respuesta.json()
-    console.log(usersJson)
-    const user2 = usersJson[2].email
+    event.preventDefault();
 
-    if (emailUser.value === user2) {
+    if (!emailUser) return;
+
+    const emailIngresado = emailUser.value.trim().toLowerCase();
+    const url = "https://jsonplaceholder.typicode.com/users";
+    const respuesta = await fetch(url);
+    const usersJson = await respuesta.json();
+    console.log(usersJson);
+
+    const emailsLogueados = usersJson.map((user) => {
+        return user.email;
+    });
+
+    console.log(emailsLogueados)
+
+    if (emailsLogueados.includes(emailIngresado)) {
         alert("INTENTE CON OTRO MAIL");
-        console.error("Email ya en uso")
+        console.error("Email ya en uso");
     } else {
         // window.location.href = "bienvenido.html"
-        console.log("hola")
+        console.log("Email disponible");
     }
- }
+};
